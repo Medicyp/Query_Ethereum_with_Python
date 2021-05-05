@@ -40,3 +40,5 @@ Decimal('10000000')
 >>> balance = vesper.functions.balanceOf('0x751F3256149d127645e50466Ff260FA30c7e0F91').call() 
 >>> w3.fromWei(balance, 'ether')
 Decimal('110.552233187641641152')
+
+# Credits: https://www.youtube.com/watch?v=Jc3BchXxaAM&t=54s
