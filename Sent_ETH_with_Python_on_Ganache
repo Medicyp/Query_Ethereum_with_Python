@@ -1,0 +1,27 @@
+from web3 import Web3
+
+ganache_url = 'YOUR_GANACHE_RPC_SERVER'
+
+web3 = Web3(Web3.HTTPProvider(ganache_url))
+
+print("is connected?", web3.isConnected())
+
+account_1 = "0xb94ada75ea0c5b62bDDdaBedd08936f44Fb8066A"
+account_2 = "0x089121430974AD839E3490C5C01a515b380D6097"
+
+private_key = "ACCOUNT_1_PRIVATE_KEY"
+
+nonce = web3.eth.getTransactionCount(account_1)
+
+tx = {
+    'nonce' : nonce,
+    'to' : account_2,
+    'value' : web3.toWei(4, 'ether'),
+    'gas' : 21000,
+    'gasPrice' : web3.toWei('50', 'gwei')
+}
+
+signed_tx = web3.eth.account.signTransaction(tx, private_key)
+tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)
+
+print(web3.toHex(tx_hash))
