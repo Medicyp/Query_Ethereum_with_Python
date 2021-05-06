@@ -25,3 +25,5 @@ signed_tx = web3.eth.account.signTransaction(tx, private_key)
 tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
 print(web3.toHex(tx_hash))
+
+# credits: https://www.youtube.com/watch?v=w1ioEBlyuLQ&list=PLAgQsXt06PBghC4Sn_cWDrYiAvjn5tCSX&index=3
