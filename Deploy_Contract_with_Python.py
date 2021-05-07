@@ -40,3 +40,44 @@ def deploy_contract(secret_number, amount_ETH, owner, signature):
     return result
 
 print(deploy_contract(7, 11, ADDRESS_1, PRIVATE_KEY_1))
+
+
+
+#For reference, the Solidity code which is at the origin of the above ABI & Bytecode is below:
+pragma solidity ^0.8.1;
+
+contract guess_number{
+    
+    uint secretNumber;
+    
+    enum State {ACTIVE, COMPLETE}
+    State public currState;
+    uint balance;
+    
+    constructor (uint _secretNumber) payable {
+        require(msg.value >= 10*10**18, 'this contract needs to be funded with 10 ETH');
+        secretNumber = _secretNumber;
+        balance = msg.value;
+    }
+    
+    function getBalance() public view returns (uint) {
+        return balance;
+    }
+    
+    function play(address payable player, uint _numberGuess) external payable returns (uint) {
+        require(msg.value >= 10**18, 'pay at least one ETH to gain');
+        require(currState == State.ACTIVE, 'Too late');
+        balance = balance+msg.value;
+        if (_numberGuess == secretNumber) {
+            player.transfer(address(this).balance);
+            currState = State.COMPLETE;
+            return balance;
+        }
+        else {
+            return balance;
+        }
+    }
+    
+}
+
+# credits: https://www.youtube.com/watch?v=ksjRM5JKkyQ&list=PLFPZ8ai7J-iRa9eb1qTuepB1qaMYfhcWn&index=5
