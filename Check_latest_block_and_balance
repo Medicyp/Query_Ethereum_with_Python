@@ -1,0 +1,20 @@
+from web3 import Web3
+
+node_provider = 'YOUR_INFURA_IO_NODE'
+
+web3_connection = Web3(Web3.HTTPProvider(node_provider))
+
+def are_we_connected():
+    print(web3_connection.isConnected())
+
+def latest_block():
+    print(web3_connection.eth.block_number) #Print latest block
+
+def balance_of(ETH_address):
+    balance = web3_connection.eth.get_balance(ETH_address)
+    balance_ETH = web3_connection.fromWei(balance, 'ether')
+    print(balance_ETH)
+
+balance_of('YOUR_ETH_PUBLIC_ADDRESS')
+
+// credits: https://www.youtube.com/watch?v=upmutq1Vzng&list=PLFPZ8ai7J-iRa9eb1qTuepB1qaMYfhcWn
